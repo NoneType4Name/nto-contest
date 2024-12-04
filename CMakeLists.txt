@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(
   nto-contest
@@ -12,7 +13,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/deps/sqlite3)
+set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${CMAKE_SOURCE_DIR}/deps/sqlite3")
 
 find_package(sqlite3 REQUIRED)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
