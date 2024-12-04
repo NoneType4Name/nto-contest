@@ -298,7 +298,6 @@ sqlite3_win32_utf8_to_mbcs_v2
 sqlite3_win32_utf8_to_unicode
 sqlite3_win32_write_debug
 sqlite3changegroup_add
-sqlite3changegroup_add_change
 sqlite3changegroup_add_strm
 sqlite3changegroup_delete
 sqlite3changegroup_new
