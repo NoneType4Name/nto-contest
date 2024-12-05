@@ -21,22 +21,23 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
 set(TS_FILES nto-contest_ru_RU.ts)
 
-set(PROJECT_SOURCES main.cpp mainwindow.cpp mainwindow.h mainwindow.ui
-                    ${TS_FILES})
+set(PROJECT_SOURCES main.cxx mainwindow.cxx mainwindow.h mainwindow.ui
+  ${TS_FILES})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(nto-contest MANUAL_FINALIZATION ${PROJECT_SOURCES})
+
   # Define target properties for Android with Qt 6 as: set_property(TARGET
   # nto-contest APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
   # ${CMAKE_CURRENT_SOURCE_DIR}/android) For more information, see
   # https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-
   qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
   if(ANDROID)
     add_library(nto-contest SHARED ${PROJECT_SOURCES})
-    # Define properties for Android with Qt 5 after find_package() calls as:
-    # set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+
+  # Define properties for Android with Qt 5 after find_package() calls as:
+  # set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
   else()
     add_executable(nto-contest ${PROJECT_SOURCES})
   endif()
@@ -46,7 +47,7 @@ endif()
 
 target_include_directories(nto-contest PRIVATE ${SQLite3_INCLUDE_DIRS})
 target_link_libraries(nto-contest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
-                                          ${SQLite3_LIBRARIES})
+  ${SQLite3_LIBRARIES})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1. If
 # you are developing for iOS or macOS you should consider setting an explicit,
@@ -54,13 +55,14 @@ target_link_libraries(nto-contest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
 if(${QT_VERSION} VERSION_LESS 6.1.0)
   set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.nto-contest)
 endif()
+
 set_target_properties(
   nto-contest
   PROPERTIES ${BUNDLE_ID_OPTION} MACOSX_BUNDLE_BUNDLE_VERSION
-             ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING
-             ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} MACOSX_BUNDLE
-             TRUE WIN32_EXECUTABLE
-             TRUE)
+  ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING
+  ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} MACOSX_BUNDLE
+  TRUE WIN32_EXECUTABLE
+  TRUE)
 
 include(GNUInstallDirs)
 install(
@@ -68,6 +70,14 @@ install(
   BUNDLE DESTINATION .
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+file(GLOB_RECURSE SQLITE3_LIBS ${CMAKE_SOURCE_DIR}/deps/sqlite3/lib/*)
+
+foreach(SQLITE3_LIB IN LISTS SQLITE3_LIBS)
+  file(COPY ${SQLITE3_LIB}
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+  )
+endforeach()
 
 if(QT_VERSION_MAJOR EQUAL 6)
   qt_finalize_executable(nto-contest)
