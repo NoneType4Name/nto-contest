@@ -1,12 +1,12 @@
 {
     "configurations": [
         {
-            "type": "lldb-mi",
+            "type": "lldb",
             "request": "launch",
             "name": "Launch Program",
-            "target": "${command:cmake.launchTargetPath}",
-            "cwd": "${command:cmake.getLaunchTargetDirectory}",
-            "valuesFormatting": "parseText"
+            "program": "${command:cmake.launchTargetPath}",
+            "cwd": "${command:cmake.getLaunchTargetDirectory}"
+            // "valuesFormatting": "parseText"
         }
     ],
     "version": "2.0.0"
