@@ -1,4 +1,4 @@
-#include "commercial.h"
+#include "commercial.hxx"
 #include "ui_commercial.h"
 
 Commercial::Commercial( QWidget *parent ) : QWidget( parent ),

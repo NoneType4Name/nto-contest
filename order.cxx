@@ -1,4 +1,4 @@
-#include "order.h"
+#include "order.hxx"
 #include "ui_order.h"
 
 Order::Order( QWidget *parent ) : QWidget( parent ),

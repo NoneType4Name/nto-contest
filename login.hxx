@@ -8,13 +8,16 @@ namespace Ui
 class login;
 }
 
-class login : public QWidget
+class Login : public QWidget
 {
     Q_OBJECT
 
   public:
-    explicit login( QWidget *parent = nullptr );
-    ~login();
+    explicit Login( QWidget *parent = nullptr );
+    ~Login();
+
+  private slots:
+    void on_firstCaseLayoutPushButton_clicked();
 
   private:
     Ui::login *ui;

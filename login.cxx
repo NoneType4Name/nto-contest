@@ -1,13 +1,19 @@
-#include "login.h"
+#include "login.hxx"
 #include "ui_login.h"
+#include "common.hxx"
 
-login::login( QWidget *parent ) : QWidget( parent ),
+Login::Login( QWidget *parent ) : QWidget( parent ),
                                   ui( new Ui::login )
 {
     ui->setupUi( this );
 }
 
-login::~login()
+Login::~Login()
 {
     delete ui;
+}
+
+void Login::on_firstCaseLayoutPushButton_clicked()
+{
+    setCurrentWidgetCommercial();
 }

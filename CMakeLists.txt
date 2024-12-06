@@ -28,15 +28,16 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     nto-contest
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
-    commercial.h
+    commercial.hxx
     commercial.cxx
     commercial.ui
-    order.h
+    order.hxx
     order.cxx
     order.ui
-    login.h
+    login.hxx
     login.cxx
-    login.ui)
+    login.ui
+  )
 
   # Define target properties for Android with Qt 6 as: set_property(TARGET
   # nto-contest APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -47,8 +48,8 @@ else()
   if(ANDROID)
     add_library(nto-contest SHARED ${PROJECT_SOURCES})
 
-    # Define properties for Android with Qt 5 after find_package() calls as:
-    # set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+  # Define properties for Android with Qt 5 after find_package() calls as:
+  # set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
   else()
     add_executable(nto-contest ${PROJECT_SOURCES})
   endif()
@@ -58,7 +59,7 @@ endif()
 
 target_include_directories(nto-contest PRIVATE ${SQLite3_INCLUDE_DIRS})
 target_link_libraries(nto-contest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
-                                          ${SQLite3_LIBRARIES})
+  ${SQLite3_LIBRARIES})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1. If
 # you are developing for iOS or macOS you should consider setting an explicit,
@@ -70,10 +71,10 @@ endif()
 set_target_properties(
   nto-contest
   PROPERTIES ${BUNDLE_ID_OPTION} MACOSX_BUNDLE_BUNDLE_VERSION
-             ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING
-             ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} MACOSX_BUNDLE
-             TRUE WIN32_EXECUTABLE
-             TRUE)
+  ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING
+  ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} MACOSX_BUNDLE
+  TRUE WIN32_EXECUTABLE
+  TRUE)
 
 include(GNUInstallDirs)
 install(

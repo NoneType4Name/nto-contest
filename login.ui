@@ -44,7 +44,7 @@ QPushButton:hover, QPushButton:focus
       <string>Выберите службу</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -56,10 +56,10 @@ QPushButton:hover, QPushButton:focus
      <item>
       <spacer name="buttonsLayoutHorizontalSpacer_5">
        <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
+        <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Policy::Preferred</enum>
+        <enum>QSizePolicy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -70,12 +70,12 @@ QPushButton:hover, QPushButton:focus
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="firstCaseLayout_2">
+      <layout class="QVBoxLayout" name="firstCaseLayout">
        <property name="spacing">
         <number>0</number>
        </property>
        <item>
-        <widget class="QPushButton" name="firstCaseLayoutPushButton_2">
+        <widget class="QPushButton" name="firstCaseLayoutPushButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -95,10 +95,10 @@ QPushButton:hover, QPushButton:focus
      <item>
       <spacer name="buttonsLayoutHorizontalSpacer_6">
        <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
+        <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Policy::Preferred</enum>
+        <enum>QSizePolicy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -109,12 +109,12 @@ QPushButton:hover, QPushButton:focus
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="secondCaseLayout_2">
+      <layout class="QVBoxLayout" name="secondCaseLayout">
        <property name="spacing">
         <number>0</number>
        </property>
        <item>
-        <widget class="QPushButton" name="secondCasePushButton_2">
+        <widget class="QPushButton" name="secondCasePushButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -134,10 +134,10 @@ QPushButton:hover, QPushButton:focus
      <item>
       <spacer name="buttonsLayoutHorizontalSpacer_7">
        <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
+        <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Policy::Preferred</enum>
+        <enum>QSizePolicy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -148,12 +148,12 @@ QPushButton:hover, QPushButton:focus
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="thirdCase_2">
+      <layout class="QVBoxLayout" name="thirdCaseLayout">
        <property name="spacing">
         <number>0</number>
        </property>
        <item>
-        <widget class="QPushButton" name="thirdCasePushButton_2">
+        <widget class="QPushButton" name="thirdCasePushButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -176,10 +176,10 @@ QPushButton:hover, QPushButton:focus
      <item>
       <spacer name="buttonsLayoutHorizontalSpacer_8">
        <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
+        <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Policy::Preferred</enum>
+        <enum>QSizePolicy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -194,10 +194,10 @@ QPushButton:hover, QPushButton:focus
    <item>
     <spacer name="mainLayoutVerticalSpacer_1">
      <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
+      <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeType">
-      <enum>QSizePolicy::Policy::Expanding</enum>
+      <enum>QSizePolicy::Expanding</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
