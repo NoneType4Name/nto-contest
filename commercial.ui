@@ -132,7 +132,7 @@ QScrollBar::add-page:vertical
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QWidget" name="ordersList" native="true">
+     <widget class="QListWidget" name="ordersList" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
         <horstretch>0</horstretch>

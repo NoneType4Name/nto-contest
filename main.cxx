@@ -9,7 +9,6 @@
 #include <QTranslator>
 #include <QStackedWidget>
 #include <qlogging.h>
-#include <sqlite3.h>
 
 sqlite3 *db;
 QStackedWidget *wnd;
