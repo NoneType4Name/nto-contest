@@ -1,7 +1,8 @@
+#pragma once
 #ifndef LOGIN_H
-#define LOGIN_H
+#    define LOGIN_H
 
-#include <QWidget>
+#    include <QWidget>
 
 namespace Ui
 {

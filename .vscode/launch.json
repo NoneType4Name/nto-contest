@@ -5,8 +5,8 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${command:cmake.launchTargetPath}",
-            "cwd": "${command:cmake.getLaunchTargetDirectory}"
-            // "valuesFormatting": "parseText"
+            "cwd": "${command:cmake.getLaunchTargetDirectory}",
+            "visualizerFile": "${workspaceFolder}/.vscode/qt.natvis.xml"
         }
     ],
     "version": "2.0.0"

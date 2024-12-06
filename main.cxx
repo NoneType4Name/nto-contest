@@ -10,7 +10,7 @@
 #include <QStackedWidget>
 #include <qlogging.h>
 
-sqlite3 *db;
+sqlite3 *database;
 QStackedWidget *wnd;
 Commercial *commercialWdg;
 Login *LoginWdg;
@@ -19,7 +19,7 @@ struct _
 
     ~_()
     {
-        sqlite3_close( db );
+        sqlite3_close( database );
     }
 } _;
 
@@ -30,7 +30,7 @@ void setCurrentWidgetCommercial()
 
 int main( int argc, char *argv[] )
 {
-    int rc{ sqlite3_open( "db.db", &db ) };
+    int rc{ sqlite3_open( "db.db", &database ) };
     if( rc )
     {
         // cout << "Can't open database: " << sqlite3_errmsg( db ) << "\n";
@@ -40,9 +40,9 @@ int main( int argc, char *argv[] )
     {
         // cout << "Open database successfully\n\n";
     }
-    sqlite3_exec( db, "create table if not exists clients(id int primary key, name text);", 0, 0, 0 );
-    sqlite3_exec( db, "create table if not exists products(id int primary key, name text, description longtext);", 0, 0, 0 );
-    sqlite3_exec( db, "create table if not exists orders(id int primary key, status int, clientID int, productID int, amount int, regDate int, expDate int, description longtext);", 0, 0, 0 );
+    sqlite3_exec( database, "create table if not exists clients(id int primary key, name text);", 0, 0, 0 );
+    sqlite3_exec( database, "create table if not exists products(id int primary key, name text, description longtext);", 0, 0, 0 );
+    sqlite3_exec( database, "create table if not exists orders(id int primary key, status int, clientID int, productID int, amount int, regDate int, expDate int, description longtext);", 0, 0, 0 );
 
     QApplication a( argc, argv );
     QTranslator translator;
@@ -57,6 +57,7 @@ int main( int argc, char *argv[] )
         }
     }
     QStackedWidget _wd;
+    _wd.resize( 800, 600 );
     wnd           = &_wd;
     LoginWdg      = new Login{ wnd };
     commercialWdg = new Commercial{ wnd };
@@ -64,6 +65,5 @@ int main( int argc, char *argv[] )
     _wd.addWidget( LoginWdg );
     _wd.addWidget( commercialWdg );
     _wd.setCurrentWidget( LoginWdg );
-    _wd.setWindowState( Qt::WindowFullScreen );
     return a.exec();
 }

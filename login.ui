@@ -14,21 +14,22 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">*{
+   <string notr="true">*
+{
 	font: 13pt;
 }
+
 QPushButton
 {
-	background-color: rgb(221, 221, 221);
 	color: rgb(0, 0, 0);
-	border-radius: 10px;
+	border: 2px solid rgb(0, 0, 0);
+	border-radius: 5px;
 }
 
 QPushButton:hover, QPushButton:focus
 {
 	outline: none;
-	border: 5px solid rgb(255, 126, 34);
-	background-color: rgb(255, 255, 255);
+	border: 2px solid rgb(255, 126, 34);
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -44,7 +45,7 @@ QPushButton:hover, QPushButton:focus
       <string>Выберите службу</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -56,10 +57,10 @@ QPushButton:hover, QPushButton:focus
      <item>
       <spacer name="buttonsLayoutHorizontalSpacer_5">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Preferred</enum>
+        <enum>QSizePolicy::Policy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -95,10 +96,10 @@ QPushButton:hover, QPushButton:focus
      <item>
       <spacer name="buttonsLayoutHorizontalSpacer_6">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Preferred</enum>
+        <enum>QSizePolicy::Policy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -134,10 +135,10 @@ QPushButton:hover, QPushButton:focus
      <item>
       <spacer name="buttonsLayoutHorizontalSpacer_7">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Preferred</enum>
+        <enum>QSizePolicy::Policy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -176,10 +177,10 @@ QPushButton:hover, QPushButton:focus
      <item>
       <spacer name="buttonsLayoutHorizontalSpacer_8">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Preferred</enum>
+        <enum>QSizePolicy::Policy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -194,10 +195,10 @@ QPushButton:hover, QPushButton:focus
    <item>
     <spacer name="mainLayoutVerticalSpacer_1">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeType">
-      <enum>QSizePolicy::Expanding</enum>
+      <enum>QSizePolicy::Policy::Expanding</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

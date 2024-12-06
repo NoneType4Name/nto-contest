@@ -1,7 +1,11 @@
+#pragma once
+#include "common.hxx"
+#include <cstdint>
 #ifndef ORDER_H
-#define ORDER_H
+#    define ORDER_H
 
-#include <QWidget>
+#    include "commercial.hxx"
+#    include <QWidget>
 
 namespace Ui
 {
@@ -15,8 +19,10 @@ class Order : public QWidget
   public:
     explicit Order( QWidget *parent = nullptr );
     ~Order();
+    uint64_t id;
 
   private:
+    friend Commercial;
     Ui::Order *ui;
 };
 
