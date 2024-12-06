@@ -40,9 +40,19 @@ int main( int argc, char *argv[] )
     {
         // cout << "Open database successfully\n\n";
     }
-    sqlite3_exec( database, "create table if not exists clients(id int primary key, name text);", 0, 0, 0 );
-    sqlite3_exec( database, "create table if not exists products(id int primary key, name text, description longtext);", 0, 0, 0 );
-    sqlite3_exec( database, "create table if not exists orders(id int primary key, status int, clientID int, productID int, amount int, regDate int, expDate int, description longtext);", 0, 0, 0 );
+    sqlite3_exec( database, "create table if not exists clients(id INTEGER primary key, name text);"
+                            "create table if not exists products(id INTEGER primary key, name text, description longtext);"
+                            "create table if not exists orders(id INTEGER primary key, status INTEGER, clientID INTEGER, productID INTEGER, amount INTEGER, regDate INTEGER, expDate INTEGER, description LONGTEXT);"
+                            "INSERT OR IGNORE INTO products (id, name) VALUES (0, 'Cырые пиломатериалы');"
+                            "INSERT OR IGNORE INTO products (id, name) VALUES (1, 'Cухие пиломатериалы');"
+                            "INSERT OR IGNORE INTO products (id, name) VALUES (2, 'Cтроганные доски');"
+                            "INSERT OR IGNORE INTO products (id, name) VALUES (3, 'Рейки');"
+                            "INSERT OR IGNORE INTO products (id, name) VALUES (4, 'Брус');"
+                            "INSERT OR IGNORE INTO products (id, name) VALUES (5, 'Пеллеты');"
+                            "INSERT OR IGNORE INTO clients (id, name) VALUES (0, 'Иванов Иван Иванович');"
+                            "INSERT OR IGNORE INTO clients (id, name) VALUES (1, 'Петров Василий Иванович');",
+
+                  0, 0, 0 );
 
     QApplication a( argc, argv );
     QTranslator translator;

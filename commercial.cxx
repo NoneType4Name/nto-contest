@@ -1,20 +1,29 @@
 #include "commercial.hxx"
+#include "neworder.hxx"
 #include "ui_commercial.h"
 #include "order.hxx"
 #include "ui_order.h"
 #include "common.hxx"
-#include <cstdlib>
+#include <cstdint>
 #include <format>
+#include <qdatetime.h>
 #include <qlocale.h>
 #include <QDatetime>
 #include <qobject.h>
+#include <string>
+#include <vector>
 
 Commercial::Commercial( QWidget *parent ) : QWidget( parent ),
                                             ui( new Ui::Commercial )
 {
     ui->setupUi( this );
+    ui->ordersList->addItem( "" );
+    ui->ordersList->item( 0 )->setSizeHint( QSize( 0, 62 ) );
+    ui->ordersList->setItemWidget( ui->ordersList->item( 0 ), new neworder( ui->ordersList ) );
     sqlite3_exec( database, "SELECT * FROM orders", []( void *data, int argc, char **argv, char **szColName ) -> int
-                  { static_cast<Commercial*>(data)->addOrder(std::atoi(argv[0]), static_cast<orderStatus>(std::atoi(argv[1])), std::atoll((argv[2])),std::atoll(argv[3]), std::atoll(argv[4]), std::atoll(argv[5]), std::atoll(argv[6]), argv[7] );
+                  { 
+                    std::vector<char*>d(&argv[0], &argv[0]+argc);
+                    static_cast<Commercial*>(data)->addOrder(std::stoull(argv[0]), static_cast<orderStatus>(std::stoull(argv[1])), (static_cast<orderStatus>(std::stoull(argv[1])) != orderStatus::draft) ? std::stoull((argv[2])):0, std::stoull(argv[3]), std::stoull(argv[4]), std::stoull(argv[5]), argv[7] );
                     return 0; }, this, 0 );
     updateClientList( "" );
     sqlite3_exec( database, "SELECT name FROM products", []( void *data, int argc, char **argv, char **azColName ) -> int
@@ -38,18 +47,19 @@ Commercial::~Commercial()
     delete ui;
 }
 
-void Commercial::addOrder( uint64_t id, orderStatus status, uint64_t clientID, uint64_t productID, uint64_t amount, uint64_t regDate, uint64_t expDate, std::string desc )
+void Commercial::addOrder( uint64_t id, orderStatus status, uint64_t clientID, uint64_t productID, uint64_t amount, uint64_t regDate, std::string desc )
 {
     ui->ordersList->addItem( "" );
+    ui->ordersList->item( ui->ordersList->count() - 1 )->setSizeHint( QSize( 0, 62 ) );
     auto e{ new Order( ui->ordersList ) };
     e->id = id;
     e->ui->id->setText( QString::number( id ) );
     e->ui->status->setText( translateOrderStatus( status ).c_str() );
     e->ui->weight->setText( QString::number( amount ) );
     e->ui->date->setText( QDateTime().addSecs( regDate ).toString( "dd-MM-yyyy" ) );
-
-    sqlite3_exec( database, std::format( "SELECT name FROM clients WHERE id={}", clientID ).c_str(), []( void *data, int argc, char **argv, char **azColName ) -> int
-                  { 
+    if( status != orderStatus::draft )
+        sqlite3_exec( database, std::format( "SELECT name FROM clients WHERE id={}", clientID ).c_str(), []( void *data, int argc, char **argv, char **azColName ) -> int
+                      { 
                     static_cast<QLabel *>(data)->setText(*argv);
                     return 0; }, e->ui->clientName, 0 );
     sqlite3_exec( database, std::format( "SELECT name FROM products WHERE id={}", productID ).c_str(), []( void *data, int argc, char **argv, char **azColName ) -> int
@@ -71,23 +81,21 @@ void Commercial::on_submitPushButton_clicked()
                     *static_cast<bool*>(data) = !static_cast<bool>(argc);
                     return 0; }, &unique, 0 );
         if( unique )
-            sqlite3_exec( database, std::format( "INSERT INTO clients (id, name) VALUES ((SELECT MAX(id) FROM clients)+1, '{}');", nm ).c_str(), 0, 0, 0 );
+            sqlite3_exec( database, std::format( "INSERT INTO clients (name) VALUES ('{}');", nm ).c_str(), 0, 0, 0 );
         else
             ui->clientBlockExistName->setCurrentText( ui->clientBlockNameEdit->text() );
-        ui->clientBlockNameEdit->setEnabled( 0 );
+        ui->clientBlockNameEdit->setReadOnly( 1 );
     }
 
-    if( ui->clientBlockNameEdit->text().length() )
+    if( !ui->clientBlockNameEdit->text().length() )
     {
         uint64_t pID;
-        sqlite3_exec( database, std::format( "SELECT id FROM product WHERE name = '{}';", ui->productBlockSelect->currentText().toStdString() ).c_str(), []( void *data, int argc, char **argv, char **azColName ) -> int
+        sqlite3_exec( database, std::format( "SELECT id FROM products WHERE name = '{}';", ui->productBlockSelect->currentText().toStdString() ).c_str(), []( void *data, int argc, char **argv, char **azColName ) -> int
                       { 
-                    *static_cast<uint64_t*>(data) = std::atoi(argv[0]);
+
+                    *static_cast<uint64_t*>(data) = std::stoull(argv[0]);
                     return 0; }, &pID, 0 );
-        sqlite3_exec( database, std::format( "INSERT INTO orders (id, status, productID, amount, regDate, description) VALUES ((SELECT MAX(id) FROM orders)+1, {}, {}, {}, {}, '{}');", orderStatus::draft, pID ).c_str(), []( void *data, int argc, char **argv, char **azColName ) -> int
-                      { 
-                    *static_cast<bool*>(data) = !static_cast<bool>(argc);
-                    return 0; }, &unique, 0 );
+        sqlite3_exec( database, std::format( "INSERT INTO orders (status, productID, amount, regDate, description) VALUES ( {}, {}, {}, {}, '{}');", static_cast<uint64_t>( orderStatus::draft ), pID, ui->productBlockSpinBox->value(), QDateTime::currentDateTime().toMSecsSinceEpoch(), ui->textEdit->toPlainText().toStdString() ).c_str(), 0, 0, 0 );
     }
 
     updateClientList( ui->clientBlockExistName->currentText() );
@@ -98,12 +106,12 @@ void Commercial::on_clientBlockExistName_activated( int index )
     if( index )
     {
         ui->clientBlockNameEdit->setText( ui->clientBlockExistName->currentText() );
-        ui->clientBlockNameEdit->setEnabled( 0 );
+        ui->clientBlockNameEdit->setReadOnly( 1 );
     }
     else
     {
         ui->clientBlockNameEdit->setText( "" );
-        ui->clientBlockNameEdit->setEnabled( 1 );
+        ui->clientBlockNameEdit->setReadOnly( 0 );
     }
 }
 

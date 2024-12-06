@@ -19,7 +19,7 @@ class Commercial : public QWidget
   public:
     explicit Commercial( QWidget *parent = nullptr );
     ~Commercial();
-    void addOrder( uint64_t id, orderStatus status, uint64_t clientID, uint64_t productID, uint64_t amount, uint64_t regDate, uint64_t expDate, std::string desc );
+    void addOrder( uint64_t id, orderStatus status, uint64_t clientID, uint64_t productID, uint64_t amount, uint64_t regDate, std::string desc );
 
   private slots:
     void on_submitPushButton_clicked();
