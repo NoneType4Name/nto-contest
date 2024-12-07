@@ -1,6 +1,7 @@
 #pragma once
 #include <qcolor.h>
 #include <string>
+#include <string_view>
 #ifndef COMMON_HXX
 #    define COMMON_HXX
 #    include <sqlite3.h>
@@ -33,6 +34,18 @@ inline std::string translateOrderStatus( orderStatus stat )
             return "Выполнен";
             break;
     }
+}
+
+inline orderStatus retranslateOrderStatus( std::string_view stat )
+{
+    if( stat == "Черновик" )
+        return draft;
+    else if( stat == "Согласован с клиентом" )
+        return conform;
+    else if( stat == "Принят в производство" )
+        return manufact;
+    else
+        return done;
 }
 
 inline std::string colorizeOrderStatus( orderStatus stat )
