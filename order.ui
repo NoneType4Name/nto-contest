@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>289</width>
-    <height>48</height>
+    <width>606</width>
+    <height>78</height>
    </rect>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>60</height>
-   </size>
   </property>
   <property name="cursor">
    <cursorShape>PointingHandCursor</cursorShape>
@@ -24,8 +18,10 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget
-{	
-	background-color: rgb(185, 185, 185);
+{
+	padding: 5px;
+	background-color: rgb(221, 221, 221);
+	font: 13pt &quot;Segoe UI&quot;;
 }
 </string>
   </property>
@@ -51,7 +47,7 @@
       <string>ID</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -73,14 +69,14 @@
          <item>
           <widget class="QLabel" name="clientName">
            <property name="text">
-            <string></string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <spacer name="spacer1">
            <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
+            <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -93,10 +89,10 @@
          <item>
           <widget class="QLabel" name="productName">
            <property name="text">
-            <string></string>
+            <string/>
            </property>
            <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -105,7 +101,7 @@
        <item>
         <spacer name="spacer3">
          <property name="orientation">
-          <enum>Qt::Orientation::Vertical</enum>
+          <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -123,14 +119,14 @@
          <item>
           <widget class="QLabel" name="weight">
            <property name="text">
-            <string></string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <spacer name="spacer2">
            <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
+            <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -143,10 +139,10 @@
          <item>
           <widget class="QLabel" name="status">
            <property name="text">
-            <string></string>
+            <string/>
            </property>
            <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -157,10 +153,10 @@
      <item>
       <widget class="QLabel" name="date">
        <property name="text">
-        <string></string>
+        <string/>
        </property>
        <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
