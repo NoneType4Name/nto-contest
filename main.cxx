@@ -75,5 +75,6 @@ int main( int argc, char *argv[] )
     _wd.addWidget( LoginWdg );
     _wd.addWidget( commercialWdg );
     _wd.setCurrentWidget( LoginWdg );
+    _wd.showMaximized();
     return a.exec();
 }

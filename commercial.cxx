@@ -32,6 +32,7 @@ Commercial::Commercial( QWidget *parent ) : QWidget( parent ),
                     static_cast<QComboBox *>(data)->addItem(argv[0]);
                     return 0; }, ui->productBlockSelect, 0 );
     ui->productBlockSelect->setCurrentIndex( 0 );
+    clearFocus();
 }
 
 QString toCamelCase( const QString &s )
@@ -57,6 +58,7 @@ void Commercial::addOrder( uint64_t id, orderStatus status, uint64_t clientID, u
     e->id = id;
     e->ui->id->setText( QString::number( id ) );
     e->ui->status->setText( translateOrderStatus( status ).c_str() );
+    e->ui->status->setStyleSheet( std::format( "color: rgb({});", colorizeOrderStatus( static_cast<orderStatus>( status ) ) ).c_str() );
     e->ui->weight->setText( QString::number( amount ) );
     e->ui->date->setText( QDateTime::fromMSecsSinceEpoch( regDate ).toString( "dd MM yyyy" ) );
     if( status != orderStatus::draft )
@@ -104,8 +106,7 @@ void Commercial::on_submitPushButton_clicked()
         {
             uint64_t cID;
             sqlite3_exec( database, std::format( "SELECT id FROM clients WHERE name = '{}';", ui->clientBlockNameEdit->text().toStdString() ).c_str(), []( void *data, int argc, char **argv, char **azColName ) -> int
-                          { 
-                            auto d = argv[0];
+                          {
                     *static_cast<uint64_t*>(data) = std::stoull(argv[0]);
                     return 0; }, &cID, 0 );
             sqlite3_exec( database, std::format( "INSERT INTO orders (status, clientID, productID, amount, regDate, description) VALUES ( {}, {}, {}, {}, {}, '{}');", static_cast<uint64_t>( ui->clientBlockNameEdit->text().length() ? orderStatus::conform : orderStatus::draft ), cID, pID, ui->productBlockSpinBox->value(), QDateTime::currentDateTime().toMSecsSinceEpoch(), ui->textEdit->toPlainText().toStdString() ).c_str(), 0, 0, 0 );
@@ -169,7 +170,6 @@ void Commercial::updateOrdersList()
     ui->ordersList->setItemWidget( ui->ordersList->item( 0 ), new neworder( ui->ordersList ) );
     sqlite3_exec( database, "SELECT * FROM orders ORDER BY regDate DESC;", []( void *data, int argc, char **argv, char **szColName ) -> int
                   { 
-                    auto d{std::vector<char*>(&argv[0], &argv[0] + argc)};
                     static_cast<Commercial*>(data)->addOrder(std::stoull(argv[0]), static_cast<orderStatus>(std::stoull(argv[1])), (static_cast<orderStatus>(std::stoull(argv[1])) != orderStatus::draft) ? std::stoull((argv[2])):0, std::stoull(argv[3]), std::stoull(argv[4]), std::stoull(argv[5]), argv[7] );
                     return 0; }, this, 0 );
 }
@@ -198,6 +198,11 @@ void Commercial::on_ordersList_currentRowChanged( int currentRow )
                                 static_cast<Ui::Commercial*>(data)->clientBlockNameEdit->setText(argv[0]);
                                 return 0;
                             }, _ui, 0);
+                        }
+                        else
+                        {
+                            static_cast<Ui::Commercial*>(data)->clientBlockExistName->setCurrentIndex(0);
+                            static_cast<Ui::Commercial*>(data)->clientBlockNameEdit->clear();
                         }
                         _ui->orderStatus->setStyleSheet( std::format( "color: rgb({});", colorizeOrderStatus( static_cast<orderStatus>(std::stoull(argv[1])) ) ).c_str() );
                         _ui->productBlockSelect->setCurrentIndex(std::stoull(argv[3]));
