@@ -35,20 +35,20 @@ inline std::string translateOrderStatus( orderStatus stat )
     }
 }
 
-inline QColor colorizeOrderStatus( orderStatus stat )
+inline std::string colorizeOrderStatus( orderStatus stat )
 {
     switch( stat )
     {
         case draft:
-            return { 185, 185, 185 };
+            return "185, 185, 185";
         case conform:
-            return { 255, 123, 0 };
+            return "255, 123, 0";
             break;
         case manufact:
-            return { 255, 255, 0 };
+            return "255, 255, 0";
             break;
         case done:
-            return { 0, 255, 0 };
+            return "0, 255, 0";
             break;
     }
 }

@@ -130,7 +130,7 @@ QScrollBar::add-page:vertical
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <widget class="QListWidget" name="ordersList">
       <property name="sizePolicy">
@@ -142,7 +142,8 @@ QScrollBar::add-page:vertical
       <property name="styleSheet">
        <string notr="true">QListWidget
 {
-  border:none;
+	border:none;
+	background-color: rgb(255, 225, 116);
 }
 
 QListWidget::item
@@ -152,12 +153,12 @@ QListWidget::item
 
 QListWidget::item:hover
 {
-  background-color: rgb(60, 0, 100);
+	background-color: rgb(255, 209, 24);
 }
 
 QListWidget::item:selected
 {
-  background-color: rgb(90, 54, 116);
+	background-color: rgb(255, 126, 34);
 }</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -210,10 +211,10 @@ QListWidget::item:selected
        <item>
         <spacer name="verticalSpacer_4">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Policy::Preferred</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -250,7 +251,7 @@ QListWidget::item:selected
            <item>
             <spacer name="clientBlockSpacer">
              <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+              <enum>Qt::Orientation::Horizontal</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -292,7 +293,7 @@ QListWidget::item:selected
               <string>Новый пользователь</string>
              </property>
              <property name="sizeAdjustPolicy">
-              <enum>QComboBox::AdjustToContents</enum>
+              <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
              </property>
              <property name="duplicatesEnabled">
               <bool>true</bool>
@@ -307,7 +308,7 @@ QListWidget::item:selected
            <item>
             <spacer name="horizontalSpacer_5">
              <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+              <enum>Qt::Orientation::Horizontal</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -329,7 +330,7 @@ QListWidget::item:selected
          <item>
           <spacer name="verticalSpacer_5">
            <property name="orientation">
-            <enum>Qt::Vertical</enum>
+            <enum>Qt::Orientation::Vertical</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -374,10 +375,10 @@ QListWidget::item:selected
                 <cursorShape>IBeamCursor</cursorShape>
                </property>
                <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
                </property>
                <property name="buttonSymbols">
-                <enum>QAbstractSpinBox::NoButtons</enum>
+                <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
                </property>
                <property name="minimum">
                 <number>1</number>
@@ -395,10 +396,10 @@ QListWidget::item:selected
            <item>
             <spacer name="horizontalSpacer_3">
              <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+              <enum>Qt::Orientation::Horizontal</enum>
              </property>
              <property name="sizeType">
-              <enum>QSizePolicy::Expanding</enum>
+              <enum>QSizePolicy::Policy::Expanding</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -415,10 +416,10 @@ QListWidget::item:selected
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Policy::Preferred</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -444,10 +445,10 @@ QListWidget::item:selected
        <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
+          <enum>QSizePolicy::Policy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -466,7 +467,7 @@ QListWidget::item:selected
           <string>Черновик</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -478,7 +479,7 @@ QListWidget::item:selected
          <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -507,7 +508,7 @@ QListWidget::item:selected
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -522,10 +523,10 @@ QListWidget::item:selected
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Policy::Preferred</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>

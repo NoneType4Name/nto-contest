@@ -25,8 +25,12 @@ class Commercial : public QWidget
     void on_submitPushButton_clicked();
     void on_clientBlockExistName_activated( int index );
 
+    void on_ordersList_currentRowChanged(int currentRow);
+
   private:
     void updateClientList( QString text );
+    void updateOrdersList();
+    void createDraft();
     Ui::Commercial *ui;
 };
 

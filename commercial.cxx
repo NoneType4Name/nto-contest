@@ -52,11 +52,12 @@ void Commercial::addOrder( uint64_t id, orderStatus status, uint64_t clientID, u
     ui->ordersList->addItem( "" );
     ui->ordersList->item( ui->ordersList->count() - 1 )->setSizeHint( QSize( 0, 62 ) );
     auto e{ new Order( ui->ordersList ) };
+    ui->ordersList->setItemWidget( ui->ordersList->item( ui->ordersList->count() - 1 ), e );
     e->id = id;
     e->ui->id->setText( QString::number( id ) );
     e->ui->status->setText( translateOrderStatus( status ).c_str() );
     e->ui->weight->setText( QString::number( amount ) );
-    e->ui->date->setText( QDateTime().addSecs( regDate ).toString( "dd-MM-yyyy" ) );
+    e->ui->date->setText( QDateTime::fromMSecsSinceEpoch( regDate ).toString( "dd MM yyyy" ) );
     if( status != orderStatus::draft )
         sqlite3_exec( database, std::format( "SELECT name FROM clients WHERE id={}", clientID ).c_str(), []( void *data, int argc, char **argv, char **azColName ) -> int
                       { 
@@ -67,7 +68,6 @@ void Commercial::addOrder( uint64_t id, orderStatus status, uint64_t clientID, u
                     static_cast<QLabel *>(data)->setText(*argv);
                     return 0; }, e->ui->productName, 0 );
     e->ui->id->setText( QString::number( id ) );
-    ui->ordersList->setItemWidget( ui->ordersList->item( ui->ordersList->count() ), e );
 }
 
 void Commercial::on_submitPushButton_clicked()
@@ -96,8 +96,10 @@ void Commercial::on_submitPushButton_clicked()
                     *static_cast<uint64_t*>(data) = std::stoull(argv[0]);
                     return 0; }, &pID, 0 );
         sqlite3_exec( database, std::format( "INSERT INTO orders (status, productID, amount, regDate, description) VALUES ( {}, {}, {}, {}, '{}');", static_cast<uint64_t>( orderStatus::draft ), pID, ui->productBlockSpinBox->value(), QDateTime::currentDateTime().toMSecsSinceEpoch(), ui->textEdit->toPlainText().toStdString() ).c_str(), 0, 0, 0 );
+        ui->ordersList->setCurrentRow( 0 );
     }
 
+    updateOrdersList();
     updateClientList( ui->clientBlockExistName->currentText() );
 }
 
@@ -124,4 +126,39 @@ void Commercial::updateClientList( QString text )
                     static_cast<QComboBox *>(data)->addItem(argv[0]);
                     return 0; }, ui->clientBlockExistName, 0 );
     ui->clientBlockExistName->setCurrentText( text );
+}
+
+void Commercial::updateOrdersList()
+{
+    ui->ordersList->addItem( "" );
+    ui->ordersList->item( 0 )->setSizeHint( QSize( 0, 62 ) );
+    ui->ordersList->setItemWidget( ui->ordersList->item( 0 ), new neworder( ui->ordersList ) );
+    sqlite3_exec( database, "SELECT * FROM orders", []( void *data, int argc, char **argv, char **szColName ) -> int
+                  { 
+                    static_cast<Commercial*>(data)->addOrder(std::stoull(argv[0]), static_cast<orderStatus>(std::stoull(argv[1])), (static_cast<orderStatus>(std::stoull(argv[1])) != orderStatus::draft) ? std::stoull((argv[2])):0, std::stoull(argv[3]), std::stoull(argv[4]), std::stoull(argv[5]), argv[7] );
+                    return 0; }, this, 0 );
+}
+
+void Commercial::on_ordersList_currentRowChanged( int currentRow )
+{
+    if( currentRow )
+    {
+        ui->editStatus->setText( "Изменение заказа" );
+        ui->submitPushButton->setText( "Изменить" );
+        sqlite3_exec( database, std::format( "SELECT * FROM orders WHERE id = {}", static_cast<Order *>( ui->ordersList->itemWidget( ui->ordersList->currentItem() ) )->ui->id->text().toStdString() ).c_str(), []( void *data, int argc, char **argv, char **szColName ) -> int
+                      { 
+                        auto _ui{static_cast<Ui::Commercial*>(data)};
+                        _ui->orderStatus->setText(translateOrderStatus(static_cast<orderStatus>(std::stoull(argv[1]))).c_str());
+                        _ui->orderStatus->setStyleSheet( std::format( "color: rgb({});", colorizeOrderStatus( static_cast<orderStatus>(std::stoull(argv[1])) ) ).c_str() );
+                        
+                    return 0; }, ui, 0 );
+        ui->orderStatus->setText( translateOrderStatus( orderStatus::draft ).c_str() );
+    }
+    else
+    {
+        ui->editStatus->setText( "Создание заказа" );
+        ui->submitPushButton->setText( "Создать" );
+        ui->orderStatus->setText( translateOrderStatus( orderStatus::draft ).c_str() );
+        ui->orderStatus->setStyleSheet( std::format( "color: rgb({});", colorizeOrderStatus( orderStatus::draft ) ).c_str() );
+    }
 }
