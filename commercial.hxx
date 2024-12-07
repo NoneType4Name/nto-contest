@@ -24,8 +24,7 @@ class Commercial : public QWidget
   private slots:
     void on_submitPushButton_clicked();
     void on_clientBlockExistName_activated( int index );
-
-    void on_ordersList_currentRowChanged(int currentRow);
+    void on_ordersList_currentRowChanged( int currentRow );
 
   private:
     void updateClientList( QString text );
