@@ -24,6 +24,10 @@ class Technical : public QWidget
 
     void on_TaskStatusLabel_clicked();
 
+    void on_table_cellClicked( int row, int column );
+
+    void on_comboBox_currentTextChanged( const QString &arg1 );
+
   private:
     Ui::Technical *ui;
     void reloadTasksTable();
