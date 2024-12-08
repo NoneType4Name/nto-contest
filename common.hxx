@@ -17,6 +17,14 @@ enum orderStatus
     done
 };
 
+enum manufactBits
+{
+    first  = 1,
+    second = 2,
+    third  = 4,
+    fourth = 8,
+};
+
 inline std::string translateOrderStatus( orderStatus stat )
 {
     switch( stat )

@@ -1,5 +1,4 @@
 #pragma once
-#include "common.hxx"
 #include <cstdint>
 #ifndef ORDER_H
 #    define ORDER_H

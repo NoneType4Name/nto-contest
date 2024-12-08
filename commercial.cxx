@@ -84,7 +84,7 @@ void Commercial::on_submitPushButton_clicked()
                     *static_cast<bool*>(data) = !static_cast<bool>(argc);
                     return 0; }, &unique, 0 );
         if( unique )
-            sqlite3_exec( database, std::format( "INSERT INTO clients (name) VALUES ('{}');", nm ).c_str(), 0, 0, 0 );
+            sqlite3_exec( database, std::format( "INSERT OR IGNORE INTO clients (name) VALUES ('{}');", nm ).c_str(), 0, 0, 0 );
         else
             ui->clientBlockExistName->setCurrentText( ui->clientBlockNameEdit->text() );
         ui->clientBlockNameEdit->setReadOnly( 1 );
@@ -109,10 +109,10 @@ void Commercial::on_submitPushButton_clicked()
                           {
                     *static_cast<uint64_t*>(data) = std::stoull(argv[0]);
                     return 0; }, &cID, 0 );
-            sqlite3_exec( database, std::format( "INSERT INTO orders (status, clientID, productID, amount, regDate, description) VALUES ( {}, {}, {}, {}, {}, '{}');", static_cast<uint64_t>( ui->clientBlockNameEdit->text().length() ? orderStatus::conform : orderStatus::draft ), cID, pID, ui->productBlockSpinBox->value(), QDateTime::currentDateTime().toMSecsSinceEpoch(), ui->textEdit->toPlainText().toStdString() ).c_str(), 0, 0, 0 );
+            sqlite3_exec( database, std::format( "INSERT OR IGNORE INTO orders (status, clientID, productID, amount, regDate, description) VALUES ( {}, {}, {}, {}, {}, '{}');", static_cast<uint64_t>( ui->clientBlockNameEdit->text().length() ? orderStatus::conform : orderStatus::draft ), cID, pID, ui->productBlockSpinBox->value(), QDateTime::currentDateTime().toMSecsSinceEpoch(), ui->textEdit->toPlainText().toStdString() ).c_str(), 0, 0, 0 );
         }
         else
-            sqlite3_exec( database, std::format( "INSERT INTO orders (status, productID, amount, regDate, description) VALUES ( {}, {}, {}, {}, '{}');", static_cast<uint64_t>( ui->clientBlockNameEdit->text().length() ? orderStatus::conform : orderStatus::draft ), pID, ui->productBlockSpinBox->value(), QDateTime::currentDateTime().toMSecsSinceEpoch(), ui->textEdit->toPlainText().toStdString() ).c_str(), 0, 0, 0 );
+            sqlite3_exec( database, std::format( "INSERT OR IGNORE INTO orders (status, productID, amount, regDate, description) VALUES ( {}, {}, {}, {}, '{}');", static_cast<uint64_t>( ui->clientBlockNameEdit->text().length() ? orderStatus::conform : orderStatus::draft ), pID, ui->productBlockSpinBox->value(), QDateTime::currentDateTime().toMSecsSinceEpoch(), ui->textEdit->toPlainText().toStdString() ).c_str(), 0, 0, 0 );
         updateOrdersList();
         ui->ordersList->setCurrentRow( 1 );
     }
