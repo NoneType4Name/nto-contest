@@ -32,6 +32,8 @@ Commercial::Commercial( QWidget *parent ) : QWidget( parent ),
                     static_cast<QComboBox *>(data)->addItem(argv[0]);
                     return 0; }, ui->productBlockSelect, 0 );
     ui->productBlockSelect->setCurrentIndex( 0 );
+    ui->splitter->setStretchFactor( 0, 3 );
+    ui->splitter->setStretchFactor( 1, 1 );
     clearFocus();
 }
 

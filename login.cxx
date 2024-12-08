@@ -1,11 +1,14 @@
 #include "login.hxx"
 #include "ui_login.h"
 #include "common.hxx"
+#include "technical.hxx"
+#include "commercial.hxx"
 
 Login::Login( QWidget *parent ) : QWidget( parent ),
                                   ui( new Ui::login )
 {
     ui->setupUi( this );
+    clearFocus();
 }
 
 Login::~Login()
@@ -15,5 +18,10 @@ Login::~Login()
 
 void Login::on_firstCaseLayoutPushButton_clicked()
 {
-    setCurrentWidgetCommercial();
+    wnd->setCurrentWidget( commercialWdg );
+}
+
+void Login::on_thirdCasePushButton_clicked()
+{
+    wnd->setCurrentWidget( techincalWdg );
 }

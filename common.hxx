@@ -2,11 +2,17 @@
 #include <qcolor.h>
 #include <string>
 #include <string_view>
+#include <QStackedWidget>
 #ifndef COMMON_HXX
 #    define COMMON_HXX
 #    include <sqlite3.h>
 
 extern sqlite3 *database;
+extern QStackedWidget *wnd;
+extern class Commercial *commercialWdg;
+extern class Login *loginWdg;
+extern class Technical *techincalWdg;
+
 void setCurrentWidgetCommercial();
 
 enum orderStatus

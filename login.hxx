@@ -20,6 +20,8 @@ class Login : public QWidget
   private slots:
     void on_firstCaseLayoutPushButton_clicked();
 
+    void on_thirdCasePushButton_clicked();
+
   private:
     Ui::login *ui;
 };

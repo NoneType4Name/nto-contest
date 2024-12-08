@@ -14,7 +14,7 @@
 sqlite3 *database;
 QStackedWidget *wnd;
 Commercial *commercialWdg;
-Login *LoginWdg;
+Login *loginWdg;
 Technical *techincalWdg;
 struct _
 {
@@ -24,11 +24,6 @@ struct _
         sqlite3_close( database );
     }
 } _;
-
-void setCurrentWidgetCommercial()
-{
-    wnd->setCurrentWidget( commercialWdg );
-}
 
 int main( int argc, char *argv[] )
 {
@@ -85,14 +80,14 @@ int main( int argc, char *argv[] )
     QStackedWidget _wd;
     _wd.resize( 800, 600 );
     wnd           = &_wd;
-    LoginWdg      = new Login{ wnd };
+    loginWdg      = new Login{ wnd };
     commercialWdg = new Commercial{ wnd };
     techincalWdg  = new Technical{ wnd };
     _wd.show();
-    _wd.addWidget( LoginWdg );
+    _wd.addWidget( loginWdg );
     _wd.addWidget( commercialWdg );
     _wd.addWidget( techincalWdg );
-    _wd.setCurrentWidget( techincalWdg );
+    _wd.setCurrentWidget( loginWdg );
     _wd.showMaximized();
     return a.exec();
 }
