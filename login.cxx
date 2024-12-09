@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include "common.hxx"
 #include "technical.hxx"
+#include "production.hxx"
 #include "commercial.hxx"
 
 Login::Login( QWidget *parent ) : QWidget( parent ),
@@ -24,4 +25,9 @@ void Login::on_firstCaseLayoutPushButton_clicked()
 void Login::on_thirdCasePushButton_clicked()
 {
     wnd->setCurrentWidget( techincalWdg );
+}
+
+void Login::on_secondCasePushButton_clicked()
+{
+    wnd->setCurrentWidget( productionWdg );
 }

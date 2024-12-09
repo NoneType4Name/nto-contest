@@ -12,8 +12,8 @@ extern QStackedWidget *wnd;
 extern class Commercial *commercialWdg;
 extern class Login *loginWdg;
 extern class Technical *techincalWdg;
-
-void setCurrentWidgetCommercial();
+extern class production *productionWdg;
+;
 
 enum orderStatus
 {

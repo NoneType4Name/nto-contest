@@ -1,5 +1,6 @@
 #include "common.hxx"
 #include "commercial.hxx"
+#include "production.hxx"
 #include "login.hxx"
 #include "technical.hxx"
 #include <qnamespace.h>
@@ -13,9 +14,11 @@
 
 sqlite3 *database;
 QStackedWidget *wnd;
-Commercial *commercialWdg;
 Login *loginWdg;
+Commercial *commercialWdg;
+production *productionWdg;
 Technical *techincalWdg;
+
 struct _
 {
 
@@ -83,10 +86,12 @@ int main( int argc, char *argv[] )
     loginWdg      = new Login{ wnd };
     commercialWdg = new Commercial{ wnd };
     techincalWdg  = new Technical{ wnd };
+    productionWdg = new production{ wnd };
     _wd.show();
     _wd.addWidget( loginWdg );
     _wd.addWidget( commercialWdg );
     _wd.addWidget( techincalWdg );
+    _wd.addWidget( productionWdg );
     _wd.setCurrentWidget( loginWdg );
     _wd.showMaximized();
     return a.exec();

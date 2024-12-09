@@ -26,6 +26,8 @@ class Commercial : public QWidget
     void on_clientBlockExistName_activated( int index );
     void on_ordersList_currentRowChanged( int currentRow );
 
+    void on_exitPushButton_clicked();
+
   private:
     void updateClientList( QString text );
     void updateOrdersList();

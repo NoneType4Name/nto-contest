@@ -22,6 +22,8 @@ class Login : public QWidget
 
     void on_thirdCasePushButton_clicked();
 
+    void on_secondCasePushButton_clicked();
+
   private:
     Ui::login *ui;
 };

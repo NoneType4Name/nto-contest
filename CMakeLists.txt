@@ -41,6 +41,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     neworder.cxx
     neworder.ui
     technical.hxx technical.cxx technical.ui
+    production.hxx production.cxx production.ui
   )
 
   # Define target properties for Android with Qt 6 as: set_property(TARGET

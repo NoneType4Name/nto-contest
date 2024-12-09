@@ -28,6 +28,8 @@ class Technical : public QWidget
 
     void on_comboBox_currentTextChanged( const QString &arg1 );
 
+    void on_exitPushButton_clicked();
+
   private:
     Ui::Technical *ui;
     void reloadTasksTable();

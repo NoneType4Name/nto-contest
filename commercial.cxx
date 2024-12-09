@@ -1,5 +1,6 @@
 #include "commercial.hxx"
 #include "neworder.hxx"
+#include "login.hxx"
 #include "ui_commercial.h"
 #include "order.hxx"
 #include "ui_order.h"
@@ -245,4 +246,9 @@ void Commercial::on_ordersList_currentRowChanged( int currentRow )
         ui->clientBlockExistName->setCurrentIndex( 0 );
         ui->clientBlockNameEdit->clear();
     }
+}
+
+void Commercial::on_exitPushButton_clicked()
+{
+    wnd->setCurrentWidget( loginWdg );
 }

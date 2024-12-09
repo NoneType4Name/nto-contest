@@ -1,5 +1,6 @@
 #include "common.hxx"
 #include "technical.hxx"
+#include "login.hxx"
 #include "ui_technical.h"
 #include <QDateTime>
 #include <format>
@@ -176,7 +177,7 @@ void Technical::on_TaskStatusLabel_clicked()
         ui->StatusLabel->setText( "Дата неверна" );
         return;
     }
-    // todo: second button.
+
     uint64_t wID;
     sqlite3_exec( database, std::format( "SELECT id FROM workplaces WHERE name = '{}'", ui->workspaceComboBox->currentText().toStdString() ).c_str(), []( void *data, int argc, char **argv, char **szColName ) -> int
                   { *static_cast<uint64_t*>(data) = std::stoull(argv[0]);
@@ -224,4 +225,9 @@ void Technical::on_table_cellClicked( int row, int column )
 void Technical::on_comboBox_currentTextChanged( const QString &arg1 )
 {
     reloadTasksTable();
+}
+
+void Technical::on_exitPushButton_clicked()
+{
+    wnd->setCurrentWidget( loginWdg );
 }
