@@ -21,6 +21,7 @@ production::~production()
 
 void production::on_exitPushButton_clicked()
 {
+    ui->widget_2->hide();
     wnd->setCurrentWidget( loginWdg );
 }
 

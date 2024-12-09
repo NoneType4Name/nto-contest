@@ -162,7 +162,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Дата подготовки участка</string>
+           <string>Дата регистрации</string>
           </property>
           <property name="font">
            <font>
@@ -172,7 +172,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Дата начало изготовления лесопродукции</string>
+           <string>Дата подготовки участка</string>
           </property>
           <property name="font">
            <font>

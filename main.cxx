@@ -62,9 +62,9 @@ int main( int argc, char *argv[] )
                             "INSERT OR IGNORE INTO workplaces( id, manufactoryID, name ) VALUES( 11, 8, 'Гранулятор №1' );"
                             "INSERT OR IGNORE INTO workplaces( id, manufactoryID, name ) VALUES( 12, 8, 'Гранулятор №2' );"
                             "CREATE TABLE IF NOT EXISTS productTasks(id INTEGER PRIMARY KEY, orderID INTEGER, regDate INTEGER, startDate INTEGER, productID INTEGER, amount INTEGER, manufactoriesMask INTEGER, description TEXT);"
-                            "INSERT OR IGNORE INTO productTasks (id, orderID, regDate, startDate, productID, amount, manufactoriesMask) VALUES (0, 1, 1733664438424, 1733750820000, 1, 1, 3);"
-                            "INSERT OR IGNORE INTO productTasks (id, orderID, regDate, startDate, productID, amount, manufactoriesMask) VALUES (1, 2, 1733664438424, 1733750820000, 3, 1, 7);"
-                            "INSERT OR IGNORE INTO productTasks (id, orderID, regDate, startDate, productID, amount, manufactoriesMask) VALUES (2, 3, 1733664438424, 1733750820000, 5, 1, 8);"
+                            // "INSERT OR IGNORE INTO productTasks (id, orderID, regDate, startDate, productID, amount, manufactoriesMask) VALUES (0, 1, 1733664438424, 1733750820000, 1, 1, 3);"
+                            // "INSERT OR IGNORE INTO productTasks (id, orderID, regDate, startDate, productID, amount, manufactoriesMask) VALUES (1, 2, 1733664438424, 1733750820000, 3, 1, 7);"
+                            // "INSERT OR IGNORE INTO productTasks (id, orderID, regDate, startDate, productID, amount, manufactoriesMask) VALUES (2, 3, 1733664438424, 1733750820000, 5, 1, 8);"
                             "CREATE TABLE IF NOT EXISTS prepareTasks(id INTEGER PRIMARY KEY, productTasksID INTEGER, regDate INTEGER, startDate INTEGER, workplaceID INTEGER, description TEXT, doned BOOL);",
                   0, 0, 0 );
 

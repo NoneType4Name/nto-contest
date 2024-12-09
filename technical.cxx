@@ -32,7 +32,7 @@ Technical::~Technical()
     delete ui;
 }
 
-void Technical::reloadTasksTable() // todo: collarize
+void Technical::reloadTasksTable()
 {
     ui->table->setRowCount( 0 );
     if( ui->comboBox->currentIndex() )
@@ -46,17 +46,17 @@ void Technical::reloadTasksTable() // todo: collarize
                     return 0; }, &msProdStart, 0 );
                         _ui->table->insertRow( _ui->table->rowCount() );
                         _ui->table->setItem( _ui->table->rowCount() - 1, 0, new QTableWidgetItem{ argv[ 0 ] } );
-                        _ui->table->setItem( _ui->table->rowCount() - 1, 1, new QTableWidgetItem{ QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 2 ] ) ).toString( "dd-MM-yyyy" ) } );
+                        _ui->table->setItem( _ui->table->rowCount() - 1, 1, new QTableWidgetItem{ QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).toString( "dd-MM-yyyy" ) } );
                         _ui->table->setItem( _ui->table->rowCount() - 1, 2, new QTableWidgetItem{ QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).toString( "dd-MM-yyyy" ) } );
                         _ui->table->setItem( _ui->table->rowCount() - 1, 3, new QTableWidgetItem{ argv[ 5 ] } );
-                        if( msProdStart.date()  == QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 2 ] ) ).date() )
+                        if( msProdStart.date()  == QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).date() )
                         {
                             _ui->table->item( _ui->table->rowCount() - 1, 0 )->setBackground( Qt::red );
                             _ui->table->item( _ui->table->rowCount() - 1, 1 )->setBackground( Qt::red );
                             _ui->table->item( _ui->table->rowCount() - 1, 2 )->setBackground( Qt::red );
                             _ui->table->item( _ui->table->rowCount() - 1, 3 )->setBackground( Qt::red );
                         }
-                        else if( msProdStart.date() == QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 2 ] ) ).addDays( 1 ).date() )
+                        else if( msProdStart.date() == QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).addDays( 1 ).date() )
                         {
                             _ui->table->item( _ui->table->rowCount() - 1, 0 )->setBackground( Qt::yellow );
                             _ui->table->item( _ui->table->rowCount() - 1, 1 )->setBackground( Qt::yellow );
@@ -75,25 +75,25 @@ void Technical::reloadTasksTable() // todo: collarize
                     return 0; }, &msProdStart, 0 );
                         _ui->table->insertRow( _ui->table->rowCount() );
                         _ui->table->setItem( _ui->table->rowCount() - 1, 0, new QTableWidgetItem{ argv[ 0 ] } );
-                        _ui->table->setItem( _ui->table->rowCount() - 1, 1, new QTableWidgetItem{ QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 2 ] ) ).toString( "dd-MM-yyyy" ) } );
+                        _ui->table->setItem( _ui->table->rowCount() - 1, 1, new QTableWidgetItem{ QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).toString( "dd-MM-yyyy" ) } );
                         _ui->table->setItem( _ui->table->rowCount() - 1, 2, new QTableWidgetItem{ QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).toString( "dd-MM-yyyy" ) } );
                         _ui->table->setItem( _ui->table->rowCount() - 1, 3, new QTableWidgetItem{ argv[ 5 ] } );
-                        if(  msProdStart.date()  == QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 2 ] ) ).date() )
+                        if(  msProdStart.date()  == QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).date() )
                         {
                             _ui->table->item( _ui->table->rowCount() - 1, 0 )->setBackground( Qt::red );
                             _ui->table->item( _ui->table->rowCount() - 1, 1 )->setBackground( Qt::red );
                             _ui->table->item( _ui->table->rowCount() - 1, 2 )->setBackground( Qt::red );
                             _ui->table->item( _ui->table->rowCount() - 1, 3 )->setBackground( Qt::red );
                         }
-                        else if( msProdStart.date() == QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 2 ] ) ).addDays( 1 ).date() )
+                        else if( msProdStart.date() == QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).addDays( 1 ).date() )
                         {
                             _ui->table->item( _ui->table->rowCount() - 1, 0 )->setBackground( Qt::yellow );
                             _ui->table->item( _ui->table->rowCount() - 1, 1 )->setBackground( Qt::yellow );
                             _ui->table->item( _ui->table->rowCount() - 1, 2 )->setBackground( Qt::yellow );
                             _ui->table->item( _ui->table->rowCount() - 1, 3 )->setBackground( Qt::yellow );
                         }
-                        auto d=( msProdStart ).toString();
-                        auto d1=QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 2 ] ) ).addDays( 1 ).toString();
+                        auto d{msProdStart.date().toString()};
+                        auto d1{QDateTime::fromMSecsSinceEpoch( std::stoull( argv[ 3 ] ) ).addDays( 1 ).date().toString()};
                         return 0; }, ui, 0 );
 }
 
@@ -129,7 +129,7 @@ void Technical::on_pushButton_clicked()
 void Technical::on_ProductionTaskComboBox_currentTextChanged( const QString &arg )
 {
     ui->workspaceComboBox->clear();
-    sqlite3_exec( database, std::format( "SELECT manufactoriesMask, description FROM productTasks WHERE id = {}", arg.toStdString() ).c_str(), []( void *data, int argc, char **argv, char **szColName ) -> int
+    sqlite3_exec( database, std::format( "SELECT manufactoriesMask, description, productID FROM productTasks WHERE id = {}", arg.toStdString() ).c_str(), []( void *data, int argc, char **argv, char **szColName ) -> int
                   { 
                     auto _ui{ static_cast<Ui::Technical *>( data ) };
                     auto mnfcMask{ std::stoull( argv[ 0 ] ) };
@@ -153,7 +153,12 @@ void Technical::on_ProductionTaskComboBox_currentTextChanged( const QString &arg
                                     {
                                                     static_cast<Ui::Technical*>(data)->workspaceComboBox->addItem(argv[0]);
                                                     return 0; }, _ui, 0 );
-                    _ui->ProductionTaskDescriptionLabel->setText( argv[ 1 ] );
+                    sqlite3_exec( database, std::format( "SELECT name FROM products WHERE id = {};", argv[2] ).c_str(), []( void *data, int argc, char **argv, char **szColName ) -> int
+                                {
+                                                auto _ui{static_cast<Ui::Technical*>(data)};
+                                                _ui->ProductionTaskDescriptionLabel->setText( argv[ 0 ] );
+                                                return 0; }, _ui, 0 );
+                    _ui->ProductionTaskDescriptionLabel->setText( _ui->ProductionTaskDescriptionLabel->text()+ ' ' + argv[ 1 ] );
                     return 0; }, ui, 0 );
 }
 
